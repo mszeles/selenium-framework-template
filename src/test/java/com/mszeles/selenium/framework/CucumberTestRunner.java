@@ -9,7 +9,7 @@ package com.mszeles.selenium.framework;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions( features = "src/test/java/com/mszeles/selenium/cucumber/features", glue = "com.mszeles.selenium.cucumber.steps")
+@CucumberOptions( features = "src/test/java/com/mszeles/selenium/cucumber/features/UploadFile.feature", glue = "com.mszeles.selenium.cucumber.steps")
 public class CucumberTestRunner extends AbstractTestNGCucumberTests {
 	//	@Override
 	//	@DataProvider()

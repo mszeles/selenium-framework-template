@@ -16,17 +16,14 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-Feature: Login into application
+Feature: Uploading file
 
-#  Scenario: Positive test validating login
-  Scenario Outline: Positive test validating login #running the same scenario with multiple data set
-    Given Navigate to "https://qaclickacademy.com" site
-    And Click on Login link in homepage to land on secure sign in page 
-    When User enters <username> and <password> and logs in
-    Then Verify that user is successfully logged in
-    Then Close browser
-   Examples:
-   |username|password|
-   |"user1"|"password1"|
-   |"user2"|"password2"|
+  Scenario: Uploading file
+    Given Navigate to "https://altoconvertpdftojpg.com/" site
+    When Click on Choose file
+    And Select a file
+    And Click on Convert Now button
+    Then Verify that file is uploaded
+    And Click on download button
+    And Verify file is downloaded
    

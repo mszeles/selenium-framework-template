@@ -25,10 +25,10 @@ public class HomePage extends BaseTest {
 
 	@BeforeMethod
 	public void openPage() {
-		String url = properties.getProperty("url");
-		driver.get(url);
+		String url = getProperties().getProperty("url");
+		getDriver().get(url);
 		log.info("Navigated to {}.", url);
-		homePage = new HomePageModel(driver);
+		homePage = new HomePageModel(getDriver());
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class HomePage extends BaseTest {
 
 	@Test(dataProvider = "getData")
 	public void basePageNavigation(String username, String password, String text) {
-		homePage = new HomePageModel(driver);
+		homePage = new HomePageModel(getDriver());
 		assertEquals(homePage.getTitle().getText(), "FEATURED COURSES", "Title mismatch");
 		log.info("Succesfully navigated title");
 		assertTrue(homePage.getNavigationBar().isDisplayed());
@@ -49,7 +49,7 @@ public class HomePage extends BaseTest {
 
 	@Test
 	public void forgotPassword() {
-		homePage = new HomePageModel(driver);
+		homePage = new HomePageModel(getDriver());
 		assertTrue(homePage.getNavigationBar().isDisplayed());
 		LoginPageModel loginPage = homePage.openLoginPage();
 		ResetPasswordPageModel forgotPasswordPage = loginPage.clickForgotPassword();
