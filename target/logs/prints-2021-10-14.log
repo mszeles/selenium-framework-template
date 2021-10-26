@@ -1,0 +1,6 @@
+16:57:33.706 [TestNG-tests-2] INFO  com.mszeles.selenium.HomePage - Navigated to https://qaclickacademy.com.
+16:57:33.809 [TestNG-tests-2] INFO  com.mszeles.selenium.HomePage - Succesfully navigated title
+16:57:36.137 [TestNG-tests-2] INFO  com.mszeles.selenium.HomePage - Non restricted user
+16:57:36.686 [TestNG-tests-1] INFO  com.mszeles.selenium.HomePage - Non restricted user
+16:57:47.305 [TestNG-tests-3] INFO  com.mszeles.selenium.HomePage - Navigated to https://qaclickacademy.com.
+16:57:47.343 [TestNG-tests-3] INFO  com.mszeles.selenium.HomePage - Succesfully navigated title

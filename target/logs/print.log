@@ -1,0 +1,4 @@
+17:32:58.744 [main] INFO  com.mszeles.selenium.cucumber.steps.LoginSteps - Navigated to https://qaclickacademy.com.
+17:33:16.065 [main] INFO  com.mszeles.selenium.cucumber.steps.LoginSteps - Navigated to https://qaclickacademy.com.
+17:57:35.764 [TestNG-tests-1] INFO  com.mszeles.selenium.cucumber.steps.LoginSteps - Navigated to https://qaclickacademy.com.
+17:57:53.205 [TestNG-tests-1] INFO  com.mszeles.selenium.cucumber.steps.LoginSteps - Navigated to https://qaclickacademy.com.
