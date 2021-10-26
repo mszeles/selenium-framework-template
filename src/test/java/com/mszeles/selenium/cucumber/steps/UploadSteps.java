@@ -6,6 +6,9 @@
  */
 package com.mszeles.selenium.cucumber.steps;
 
+import static org.testng.Assert.*;
+
+import java.io.File;
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -56,31 +59,13 @@ public class UploadSteps extends BaseTest {
 	}
 	@Then("Verify file is downloaded")
 	public void verify_file_is_downloaded() {
-
+		String expectedFile = System.getProperty("user.dir") + "\\1.jpg";
+		log.info("Verifying existence of: " + expectedFile);
+		File downloadedFile = new File(expectedFile);
+		assertTrue(downloadedFile.exists());
+		if (downloadedFile.exists()) {
+			downloadedFile.delete();
+		}
 	}
 
-	//	@Override
-	//	public void navigate_to_site(String url) {
-	//		super.navigate_to_site(url);
-	//		log.info("Navigated to {}.", url);
-	//		homePage = new AirconvertpdftojpgHomepageModel(driver);
-	//	}
-	//
-	//	@Given("Click on Login link in homepage to land on secure sign in page")
-	//	public void click_on_login_link_in_homepage_to_land_on_secure_sign_in_page() {
-	//		homePage.openLoginPage();
-	//	}
-	//	@When("User enters {string} and {string} and logs in")
-	//	public void user_enters_and_and_logs_in(String username, String password) {
-	//		LoginPageModel loginPage = new LoginPageModel(driver);
-	//		loginPage.login(username, password);
-	//	}
-	//	@Then("Verify that user is successfully logged in")
-	//	public void verify_that_user_is_successfully_logged_in() {
-	//	}
-	//
-	//	@Then("Close browser")
-	//	public void close_browser() {
-	//		driver.close();
-	//	}
 }

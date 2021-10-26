@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -21,6 +23,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
@@ -31,7 +34,7 @@ public abstract class BaseTest {
 		@Override
 		protected WebDriver initialValue() {
 			try {
-				return initalizeDriver();
+				return initializeDriver();
 			}
 			catch (Exception e) {
 				log.error("Failed to initialize webdriver", e);
@@ -62,16 +65,31 @@ public abstract class BaseTest {
 		return properties.get();
 	}
 
-	private static WebDriver initalizeDriver() throws FileNotFoundException, IOException {
+	private static WebDriver initializeDriver() throws FileNotFoundException, IOException {
 		WebDriver driver;
-		getProperties().load(new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/framework.properties"));
+		String projectDir = System.getProperty("user.dir");
+		getProperties().load(new FileInputStream(projectDir + "/src/test/resources/framework.properties"));
 		//String browser = (String)properties.get("browser");
 		String browser = System.getProperty("browser","chrome");
 		String headless = System.getProperty("headless","false");
 		switch (browser) {
 		case "firefox":
-			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/libs/geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", projectDir + "/libs/geckodriver.exe");
+			FirefoxProfile profile = new FirefoxProfile();
+			// Instructing firefox to use custom download location
+			profile.setPreference("browser.download.folderList", 2);
+			// Setting custom download directory
+			profile.setPreference("browser.download.dir", projectDir);
+
+			// Skipping Save As dialog box for types of files with their MIME
+			profile.setPreference("browser.helperApps.neverAsk.saveToDisk",
+					"text/csv,application/java-archive, application/x-msexcel,application/excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,"
+							+ "application/x-excel,application/vnd.ms-excel,image/png,image/jpeg,text/html,text/plain,application/msword,application/xml,"
+							+ "application/vnd.microsoft.portable-executable,application/x-gzip");
+
+			// Creating FirefoxOptions to set profile
 			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.setProfile(profile);
 			if ("true".equals(headless)) {
 				firefoxOptions.setHeadless(true);
 			}
@@ -80,11 +98,15 @@ public abstract class BaseTest {
 		case "IE":
 			throw new UnsupportedOperationException("IE is not supported");
 		default:
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/libs/ChromeDriver.exe");
+			System.setProperty("webdriver.chrome.driver", projectDir + "/libs/ChromeDriver.exe");
 			ChromeOptions chromeOptions = new ChromeOptions();
 			if ("true".equals(headless)) {
 				chromeOptions.addArguments("headless");
 			}
+			Map<String, Object> prefs = new HashMap<>();
+			prefs.put("profile.default_content_settings.popups", 0);
+			prefs.put("download.default_directory", projectDir);
+			chromeOptions.setExperimentalOption("prefs", prefs);
 			driver = new ChromeDriver(chromeOptions);
 			break;
 		}
